@@ -18,10 +18,10 @@ export default function StepConfirmation({ data }) {
       {/* Heading */}
       <div>
         <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-3">
-          Submission Received
+          Thank You for Your Information
         </h2>
         <p className="text-muted-foreground text-lg max-w-lg mx-auto">
-          Your confidential intake has been securely submitted to Empire Investigation LLC.
+          We will contact you as soon as possible.
         </p>
       </div>
 
