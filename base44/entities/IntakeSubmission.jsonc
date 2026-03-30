@@ -1,0 +1,290 @@
+{
+  "name": "IntakeSubmission",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "submitted",
+        "under_review",
+        "assigned"
+      ],
+      "default": "draft"
+    },
+    "case_type": {
+      "type": "string"
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "standard",
+        "urgent",
+        "emergency"
+      ]
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "client_phone": {
+      "type": "string"
+    },
+    "client_email": {
+      "type": "string"
+    },
+    "client_address": {
+      "type": "string"
+    },
+    "client_city": {
+      "type": "string"
+    },
+    "client_state": {
+      "type": "string"
+    },
+    "client_zip": {
+      "type": "string"
+    },
+    "client_relationship": {
+      "type": "string"
+    },
+    "preferred_contact": {
+      "type": "string",
+      "enum": [
+        "phone",
+        "email",
+        "text"
+      ]
+    },
+    "safe_contact_times": {
+      "type": "string"
+    },
+    "subject_name": {
+      "type": "string"
+    },
+    "subject_nicknames": {
+      "type": "string"
+    },
+    "subject_phone": {
+      "type": "string"
+    },
+    "subject_address": {
+      "type": "string"
+    },
+    "subject_city": {
+      "type": "string"
+    },
+    "subject_state": {
+      "type": "string"
+    },
+    "subject_zip": {
+      "type": "string"
+    },
+    "lights_on_timer": {
+      "type": "string"
+    },
+    "other_residents": {
+      "type": "string"
+    },
+    "dog_at_location": {
+      "type": "string"
+    },
+    "dog_details": {
+      "type": "string"
+    },
+    "subject_gender": {
+      "type": "string"
+    },
+    "subject_age": {
+      "type": "string"
+    },
+    "subject_dob": {
+      "type": "string"
+    },
+    "subject_height": {
+      "type": "string"
+    },
+    "subject_weight": {
+      "type": "string"
+    },
+    "subject_hair_color": {
+      "type": "string"
+    },
+    "subject_skin_tone": {
+      "type": "string"
+    },
+    "subject_facial_hair": {
+      "type": "string"
+    },
+    "subject_glasses": {
+      "type": "string"
+    },
+    "subject_identifying_features": {
+      "type": "string"
+    },
+    "vehicle_make_model": {
+      "type": "string"
+    },
+    "vehicle_color": {
+      "type": "string"
+    },
+    "vehicle_plate": {
+      "type": "string"
+    },
+    "vehicle_year": {
+      "type": "string"
+    },
+    "vehicle_identifiers": {
+      "type": "string"
+    },
+    "vehicle_co_own": {
+      "type": "string"
+    },
+    "subject_friends": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "subject_children": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "opposite_sex_relatives": {
+      "type": "string"
+    },
+    "work_name": {
+      "type": "string"
+    },
+    "work_address": {
+      "type": "string"
+    },
+    "work_city": {
+      "type": "string"
+    },
+    "work_state": {
+      "type": "string"
+    },
+    "work_zip": {
+      "type": "string"
+    },
+    "work_phone": {
+      "type": "string"
+    },
+    "work_days": {
+      "type": "string"
+    },
+    "work_hours": {
+      "type": "string"
+    },
+    "work_job_title": {
+      "type": "string"
+    },
+    "subject_parking": {
+      "type": "string"
+    },
+    "subject_lunch": {
+      "type": "string"
+    },
+    "subject_hobbies": {
+      "type": "string"
+    },
+    "subject_rec_vehicles": {
+      "type": "string"
+    },
+    "subject_weekend_routine": {
+      "type": "string"
+    },
+    "subject_frequented_places": {
+      "type": "string"
+    },
+    "subject_time_away": {
+      "type": "string"
+    },
+    "upcoming_events": {
+      "type": "string"
+    },
+    "outings_frequency": {
+      "type": "string"
+    },
+    "outings_details": {
+      "type": "string"
+    },
+    "hs_reunion": {
+      "type": "string"
+    },
+    "hs_reunion_date": {
+      "type": "string"
+    },
+    "college_reunion": {
+      "type": "string"
+    },
+    "college_reunion_date": {
+      "type": "string"
+    },
+    "prior_surveillance": {
+      "type": "string"
+    },
+    "prior_surveillance_when": {
+      "type": "string"
+    },
+    "prior_surveillance_results": {
+      "type": "string"
+    },
+    "prior_surveillance_who": {
+      "type": "string"
+    },
+    "subject_seeing_someone": {
+      "type": "string"
+    },
+    "suspicious_behavior": {
+      "type": "string"
+    },
+    "suspicious_times_where": {
+      "type": "string"
+    },
+    "hiding_phone_bills": {
+      "type": "string"
+    },
+    "staying_late_work": {
+      "type": "string"
+    },
+    "secretive_devices": {
+      "type": "string"
+    },
+    "travel_plans": {
+      "type": "string"
+    },
+    "info_to_find": {
+      "type": "string"
+    },
+    "plan_for_info": {
+      "type": "string"
+    },
+    "has_evidence": {
+      "type": "string"
+    },
+    "evidence_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "additional_notes": {
+      "type": "string"
+    },
+    "consent_acknowledged": {
+      "type": "boolean"
+    },
+    "current_step": {
+      "type": "number"
+    },
+    "internal_summary": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "status"
+  ]
+}
