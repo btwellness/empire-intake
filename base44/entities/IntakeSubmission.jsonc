@@ -12,6 +12,9 @@
       ],
       "default": "draft"
     },
+    "deleted_at": {
+      "type": "string"
+    },
     "case_type": {
       "type": "string"
     },
