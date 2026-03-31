@@ -1,14 +1,14 @@
 import { jsPDF } from "jspdf";
 
-const GOLD = [183, 149, 80];
-const DARK = [18, 18, 24];
-const GRAY = [120, 120, 135];
+const GOLD = [140, 100, 30];
+const DARK = [30, 30, 30];
+const GRAY = [100, 100, 110];
 const LIGHT_GRAY = [240, 240, 245];
-const WHITE = [255, 255, 255];
-const RED_FLAG = [180, 50, 50];
+const WHITE = [30, 30, 30];
+const RED_FLAG = [160, 30, 30];
 
 function addPageBackground(doc) {
-  doc.setFillColor(...DARK);
+  doc.setFillColor(255, 255, 255);
   doc.rect(0, 0, 210, 297, "F");
 }
 
@@ -17,8 +17,8 @@ function addHeader(doc, pageNum, totalPages) {
   doc.setFillColor(...GOLD);
   doc.rect(0, 0, 210, 2, "F");
 
-  // Dark header band
-  doc.setFillColor(28, 28, 36);
+  // Light header band
+  doc.setFillColor(248, 246, 240);
   doc.rect(0, 2, 210, 28, "F");
 
   // Company name
@@ -67,7 +67,7 @@ function addFooter(doc) {
 }
 
 function sectionHeader(doc, title, y) {
-  doc.setFillColor(30, 30, 40);
+  doc.setFillColor(240, 238, 232);
   doc.roundedRect(15, y - 5, 180, 10, 1, 1, "F");
   doc.setDrawColor(...GOLD);
   doc.setLineWidth(0.5);
@@ -138,7 +138,7 @@ export function exportSubmissionPDF(sub) {
   addHeader(doc, 1, 3);
 
   // Title block
-  doc.setFillColor(22, 22, 30);
+  doc.setFillColor(248, 246, 240);
   doc.roundedRect(15, 35, 180, 22, 2, 2, "F");
   doc.setDrawColor(...GOLD);
   doc.setLineWidth(0.3);
@@ -164,7 +164,7 @@ export function exportSubmissionPDF(sub) {
   doc.setTextColor(...WHITE);
   doc.text((sub.urgency || "standard").toUpperCase(), 35, 65.5, { align: "center" });
 
-  doc.setFillColor(40, 40, 55);
+  doc.setFillColor(240, 238, 232);
   doc.roundedRect(58, 60, 60, 8, 1, 1, "F");
   doc.setTextColor(...GOLD);
   doc.text((sub.case_type || "Unspecified").toUpperCase().replace(/_/g, " "), 88, 65.5, { align: "center" });
@@ -285,11 +285,11 @@ export function exportSubmissionPDF(sub) {
   if (sub.suspicious_behavior === "yes") redFlags.push("Suspicious behavior reported");
 
   if (redFlags.length) {
-    doc.setFillColor(60, 20, 20);
+    doc.setFillColor(255, 240, 240);
     doc.roundedRect(15, y - 2, 180, redFlags.length * 5 + 6, 1, 1, "F");
     doc.setFont("helvetica", "bold");
     doc.setFontSize(7);
-    doc.setTextColor(220, 80, 80);
+    doc.setTextColor(160, 30, 30);
     doc.text("⚑ RED FLAGS IDENTIFIED:", 20, y + 3);
     y += 7;
     doc.setFont("helvetica", "normal");
@@ -373,7 +373,7 @@ export function exportSubmissionPDF(sub) {
   if (sub.internal_summary) {
     y += 4;
     y = sectionHeader(doc, "Internal Case Summary", y);
-    doc.setFillColor(22, 22, 30);
+    doc.setFillColor(248, 246, 240);
     const summaryLines = doc.splitTextToSize(sub.internal_summary, 170);
     const boxH = summaryLines.length * 4.5 + 8;
     doc.roundedRect(15, y - 2, 180, boxH, 1, 1, "F");
@@ -382,14 +382,14 @@ export function exportSubmissionPDF(sub) {
     doc.line(18, y - 2, 18, y - 2 + boxH);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7);
-    doc.setTextColor(200, 200, 210);
+    doc.setTextColor(60, 60, 70);
     doc.text(summaryLines, 22, y + 4);
     y += boxH + 6;
   }
 
   // Signature / acknowledgment block
   y += 6;
-  doc.setFillColor(28, 28, 36);
+  doc.setFillColor(248, 246, 240);
   doc.roundedRect(15, y, 180, 28, 2, 2, "F");
   doc.setDrawColor(...GOLD);
   doc.setLineWidth(0.3);
