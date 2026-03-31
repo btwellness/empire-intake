@@ -15,7 +15,7 @@ import StepBehavior from "../components/intake/StepBehavior";
 import StepEvents from "../components/intake/StepEvents";
 import StepGoals from "../components/intake/StepGoals";
 import StepReview from "../components/intake/StepReview";
-import StepConfirmation from "../components/intake/StepConfirmation";
+
 
 const TOTAL_STEPS = 9;
 
@@ -113,7 +113,6 @@ export default function IntakeForm() {
   const [submissionId, setSubmissionId] = useState(null);
   const [saving, setSaving] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   // Check for draft from URL
   useEffect(() => {
@@ -180,7 +179,7 @@ export default function IntakeForm() {
         const created = await base44.entities.IntakeSubmission.create(submitData);
         setSubmissionId(created.id);
       }
-      setSubmitted(true);
+      navigate("/thank-you");
     } catch (err) {
       toast.error("Submission failed: " + (err?.message || "Unknown error"));
     } finally {
@@ -234,17 +233,6 @@ export default function IntakeForm() {
     setCurrentStep(step);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  if (submitted) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main className="max-w-3xl mx-auto px-4 py-8 md:py-12">
-          <StepConfirmation data={formData} />
-        </main>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background">
