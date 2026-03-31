@@ -213,6 +213,10 @@ export default function IntakeForm() {
   };
 
   const nextStep = () => {
+    if (currentStep === 8 && !formData.consent_acknowledged) {
+      toast.error("Please acknowledge the confidentiality agreement before continuing.");
+      return;
+    }
     if (currentStep < TOTAL_STEPS) {
       setCurrentStep((s) => s + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
