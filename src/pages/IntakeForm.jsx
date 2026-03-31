@@ -165,23 +165,27 @@ export default function IntakeForm() {
     }
 
     setSubmitting(true);
-    const submitData = { ...formData, status: "submitted", current_step: TOTAL_STEPS };
-    delete submitData.id;
-    delete submitData.created_date;
-    delete submitData.updated_date;
-    delete submitData.created_by;
+    try {
+      const submitData = { ...formData, status: "submitted", current_step: TOTAL_STEPS };
+      delete submitData.id;
+      delete submitData.created_date;
+      delete submitData.updated_date;
+      delete submitData.created_by;
 
-    // Generate internal summary
-    submitData.internal_summary = generateSummary(formData);
+      submitData.internal_summary = generateSummary(formData);
 
-    if (submissionId) {
-      await base44.entities.IntakeSubmission.update(submissionId, submitData);
-    } else {
-      const created = await base44.entities.IntakeSubmission.create(submitData);
-      setSubmissionId(created.id);
+      if (submissionId) {
+        await base44.entities.IntakeSubmission.update(submissionId, submitData);
+      } else {
+        const created = await base44.entities.IntakeSubmission.create(submitData);
+        setSubmissionId(created.id);
+      }
+      setSubmitted(true);
+    } catch (err) {
+      toast.error("Submission failed: " + (err?.message || "Unknown error"));
+    } finally {
+      setSubmitting(false);
     }
-    setSubmitting(false);
-    setSubmitted(true);
   };
 
   const generateSummary = (d) => {
