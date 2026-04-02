@@ -1,59 +1,51 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Shield, Lock, Clock, ChevronRight, Eye, FileText, Phone } from "lucide-react";
+import { Shield, Lock, Clock, ChevronRight, Eye, FileText } from "lucide-react";
+import { BackgroundPaths } from "@/components/ui/background-paths";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <header className="relative overflow-hidden">
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-        
-        <div className="relative max-w-4xl mx-auto px-4 pt-16 pb-20 md:pt-24 md:pb-28 text-center">
-          {/* Logo */}
-          <div className="flex justify-center mb-8">
-            <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20">
-              <Shield className="w-8 h-8 text-primary-foreground" />
-            </div>
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-display font-semibold text-foreground tracking-tight mb-4">
-            Empire Investigation
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-3">
+      <header className="relative">
+        <BackgroundPaths title="Empire Investigation">
+          <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-3">
             Licensed Private Investigation Services
           </p>
-          <p className="text-sm text-muted-foreground max-w-xl mx-auto mb-10">
-            Discretion. Precision. Results. Our team of experienced investigators 
+          <p className="text-sm text-neutral-500 max-w-xl mx-auto mb-10">
+            Discretion. Precision. Results. Our team of experienced investigators
             provides confidential, thorough, and legally sound investigation services.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/intake">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 h-14 px-8 text-base shadow-lg shadow-primary/20">
-                Begin Confidential Intake
-                <ChevronRight className="w-5 h-5 ml-2" />
-              </Button>
+              <div className="inline-block group relative bg-gradient-to-b from-black/10 to-white/10 p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <Button
+                  variant="ghost"
+                  className="rounded-[1.15rem] px-8 py-6 text-lg font-semibold backdrop-blur-md bg-white/95 hover:bg-white/100 text-black transition-all duration-300 group-hover:-translate-y-0.5 border border-black/10 hover:shadow-md"
+                >
+                  <span className="opacity-90 group-hover:opacity-100 transition-opacity">Begin Confidential Intake</span>
+                  <span className="ml-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-1.5 transition-all duration-300">→</span>
+                </Button>
+              </div>
             </Link>
           </div>
 
-          {/* Trust Badges */}
-          <div className="flex items-center justify-center gap-6 md:gap-10 mt-12 text-muted-foreground">
+          <div className="flex items-center justify-center gap-6 md:gap-10 mt-12 text-neutral-500">
             <div className="flex items-center gap-2 text-xs">
-              <Lock className="w-4 h-4 text-primary" />
+              <Lock className="w-4 h-4 text-neutral-700" />
               <span>256-bit Encrypted</span>
             </div>
             <div className="flex items-center gap-2 text-xs">
-              <Shield className="w-4 h-4 text-primary" />
+              <Shield className="w-4 h-4 text-neutral-700" />
               <span>Fully Confidential</span>
             </div>
             <div className="flex items-center gap-2 text-xs">
-              <Clock className="w-4 h-4 text-primary" />
+              <Clock className="w-4 h-4 text-neutral-700" />
               <span>24hr Response</span>
             </div>
           </div>
-        </div>
+        </BackgroundPaths>
       </header>
 
       {/* Services */}
