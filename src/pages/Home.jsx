@@ -9,13 +9,18 @@ export default function Home() {
       {/* Hero */}
       <header className="relative">
         <BackgroundPaths title="Empire Investigation">
-          <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto mb-3">
-            Licensed Private Investigation Services
-          </p>
-          <p className="text-sm text-neutral-400 max-w-xl mx-auto mb-10">
-            Discretion. Precision. Results. Our team of experienced investigators
-            provides confidential, thorough, and legally sound investigation services.
-          </p>
+          <div className="relative inline-block mx-auto mb-10">
+            <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10" />
+            <div className="relative px-8 py-5">
+              <p className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mb-2">
+                Licensed Private Investigation Services
+              </p>
+              <p className="text-sm text-neutral-400 max-w-xl mx-auto">
+                Discretion. Precision. Results. Our team of experienced investigators
+                provides confidential, thorough, and legally sound investigation services.
+              </p>
+            </div>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/intake">
