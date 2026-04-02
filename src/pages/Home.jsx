@@ -12,10 +12,10 @@ export default function Home() {
           <div className="relative inline-block mx-auto mb-10">
             <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10" />
             <div className="relative px-8 py-5">
-              <p className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mb-2">
+              <p className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto mb-2 font-inter tracking-wide font-light">
                 Licensed Private Investigation Services
               </p>
-              <p className="text-sm text-neutral-400 max-w-xl mx-auto">
+              <p className="text-sm text-neutral-400 max-w-xl mx-auto font-inter font-light tracking-wide leading-relaxed">
                 Discretion. Precision. Results. Our team of experienced investigators
                 provides confidential, thorough, and legally sound investigation services.
               </p>
