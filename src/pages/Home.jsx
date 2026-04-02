@@ -9,10 +9,10 @@ export default function Home() {
       {/* Hero */}
       <header className="relative">
         <BackgroundPaths title="Empire Investigation">
-          <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-3">
+          <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto mb-3">
             Licensed Private Investigation Services
           </p>
-          <p className="text-sm text-neutral-500 max-w-xl mx-auto mb-10">
+          <p className="text-sm text-neutral-400 max-w-xl mx-auto mb-10">
             Discretion. Precision. Results. Our team of experienced investigators
             provides confidential, thorough, and legally sound investigation services.
           </p>
@@ -22,7 +22,7 @@ export default function Home() {
               <div className="inline-block group relative bg-gradient-to-b from-black/10 to-white/10 p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <Button
                   variant="ghost"
-                  className="rounded-[1.15rem] px-8 py-6 text-lg font-semibold backdrop-blur-md bg-white/95 hover:bg-white/100 text-black transition-all duration-300 group-hover:-translate-y-0.5 border border-black/10 hover:shadow-md"
+                  className="rounded-[1.15rem] px-8 py-6 text-lg font-semibold backdrop-blur-md bg-black/95 hover:bg-black/100 text-white transition-all duration-300 group-hover:-translate-y-0.5 border border-white/10 hover:shadow-md"
                 >
                   <span className="opacity-90 group-hover:opacity-100 transition-opacity">Begin Confidential Intake</span>
                   <span className="ml-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-1.5 transition-all duration-300">→</span>
@@ -31,17 +31,17 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="flex items-center justify-center gap-6 md:gap-10 mt-12 text-neutral-500">
+          <div className="flex items-center justify-center gap-6 md:gap-10 mt-12 text-neutral-400">
             <div className="flex items-center gap-2 text-xs">
-              <Lock className="w-4 h-4 text-neutral-700" />
+              <Lock className="w-4 h-4 text-neutral-300" />
               <span>256-bit Encrypted</span>
             </div>
             <div className="flex items-center gap-2 text-xs">
-              <Shield className="w-4 h-4 text-neutral-700" />
+              <Shield className="w-4 h-4 text-neutral-300" />
               <span>Fully Confidential</span>
             </div>
             <div className="flex items-center gap-2 text-xs">
-              <Clock className="w-4 h-4 text-neutral-700" />
+              <Clock className="w-4 h-4 text-neutral-300" />
               <span>24hr Response</span>
             </div>
           </div>
