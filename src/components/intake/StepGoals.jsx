@@ -1,13 +1,29 @@
+import { useEffect, useState } from "react";
 import FormCard from "./FormCard";
 import FormField from "./FormField";
 import FileUpload from "./FileUpload";
+import { AlertTriangle } from "lucide-react";
 
 const YES_NO = [
   { value: "yes", label: "Yes" },
   { value: "no", label: "No" },
 ];
 
-export default function StepGoals({ data, onChange }) {
+export default function StepGoals({ data, onChange, showConsentWarning, onWarningSeen }) {
+  const [showWarning, setShowWarning] = useState(false);
+
+  useEffect(() => {
+    if (showConsentWarning) {
+      setShowWarning(true);
+    }
+  }, [showConsentWarning]);
+
+  const handleConsentChange = (e) => {
+    onChange(e);
+    setShowWarning(false);
+    if (onWarningSeen) onWarningSeen();
+  };
+
   const handleFilesChange = (files) => {
     onChange({ target: { name: "evidence_files", value: files } });
   };
@@ -85,14 +101,28 @@ export default function StepGoals({ data, onChange }) {
       </FormCard>
 
       <FormCard>
-        <FormField
-          name="consent_acknowledged"
-          type="checkbox"
-          value={data.consent_acknowledged}
-          onChange={onChange}
-          placeholder="I understand that all information provided will be treated as confidential and used solely for the purpose of this investigation. I acknowledge that Empire Investigation LLC operates within the bounds of applicable laws and regulations."
-          required
-        />
+        <div className="space-y-3">
+          <div className="flex items-start gap-1">
+            <span className="text-red-500 text-sm mt-0.5">*</span>
+            <span className="text-sm font-medium text-foreground">Confidentiality Acknowledgment <span className="text-red-500">Required</span></span>
+          </div>
+
+          {showWarning && (
+            <div className="flex items-center gap-2.5 px-4 py-3 rounded-lg border border-yellow-500/40 bg-yellow-500/10 text-yellow-400 animate-shake">
+              <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+              <p className="text-sm font-medium">Please check the box below to acknowledge the confidentiality agreement before continuing.</p>
+            </div>
+          )}
+
+          <FormField
+            name="consent_acknowledged"
+            type="checkbox"
+            value={data.consent_acknowledged}
+            onChange={handleConsentChange}
+            placeholder="I understand that all information provided will be treated as confidential and used solely for the purpose of this investigation. I acknowledge that Empire Investigation LLC operates within the bounds of applicable laws and regulations."
+            required
+          />
+        </div>
       </FormCard>
     </div>
   );

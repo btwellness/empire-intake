@@ -113,6 +113,7 @@ export default function IntakeForm() {
   const [submissionId, setSubmissionId] = useState(null);
   const [saving, setSaving] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [showConsentWarning, setShowConsentWarning] = useState(false);
 
   // Check for draft from URL
   useEffect(() => {
@@ -213,7 +214,7 @@ export default function IntakeForm() {
 
   const nextStep = () => {
     if (currentStep === 8 && !formData.consent_acknowledged) {
-      toast.error("Please acknowledge the confidentiality agreement before continuing.");
+      setShowConsentWarning(true);
       return;
     }
     if (currentStep < TOTAL_STEPS) {
@@ -254,7 +255,7 @@ export default function IntakeForm() {
         {currentStep === 5 && <StepEmployment data={formData} onChange={handleChange} />}
         {currentStep === 6 && <StepBehavior data={formData} onChange={handleChange} />}
         {currentStep === 7 && <StepEvents data={formData} onChange={handleChange} />}
-        {currentStep === 8 && <StepGoals data={formData} onChange={handleChange} />}
+        {currentStep === 8 && <StepGoals data={formData} onChange={handleChange} showConsentWarning={showConsentWarning} onWarningSeen={() => setShowConsentWarning(false)} />}
         {currentStep === 9 && <StepReview data={formData} onEditStep={goToStep} />}
 
         {/* Navigation */}
