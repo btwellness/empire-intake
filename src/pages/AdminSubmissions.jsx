@@ -149,8 +149,12 @@ export default function AdminSubmissions() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-medium text-foreground">{sub.client_name || "Unknown Client"}</span>
-                        <span className="text-xs text-muted-foreground">→</span>
-                        <span className="text-sm text-muted-foreground">{sub.subject_name || "Unknown Subject"}</span>
+                                        <span className="text-xs text-muted-foreground">→</span>
+                                        <span className="text-sm text-muted-foreground">
+                                          {sub.case_type === "child_custody"
+                                            ? (sub.custody_subject_name || sub.custody_child_names || "Unknown Subject")
+                                            : (sub.subject_name || "Unknown Subject")}
+                                        </span>
                       </div>
                       <div className="flex items-center gap-3 mt-1 flex-wrap">
                         <span className="text-xs text-muted-foreground capitalize">{sub.case_type || "Unspecified"}</span>
@@ -229,15 +233,32 @@ export default function AdminSubmissions() {
                             <p>Safe times: {sub.safe_contact_times || "N/A"}</p>
                           </div>
                         </div>
-                        <div>
-                          <h4 className="text-sm font-semibold text-foreground mb-2">Subject Details</h4>
-                          <div className="space-y-1 text-sm text-muted-foreground">
-                            <p>Name: {sub.subject_name || "N/A"}</p>
-                            <p>Phone: {sub.subject_phone || "N/A"}</p>
-                            <p>Vehicle: {[sub.vehicle_make_model, sub.vehicle_color].filter(Boolean).join(", ") || "N/A"}</p>
-                            <p>Plate: {sub.vehicle_plate || "N/A"}</p>
+                        {sub.case_type === "child_custody" ? (
+                          <div>
+                            <h4 className="text-sm font-semibold text-foreground mb-2">Custody Case</h4>
+                            <div className="space-y-1 text-sm text-muted-foreground">
+                              <p>Child(ren): {sub.custody_child_names || "N/A"}</p>
+                              <p>Child age(s): {sub.custody_child_ages || "N/A"}</p>
+                              <p>Investigated party: {sub.custody_subject_name || "N/A"}</p>
+                              <p>Their phone: {sub.custody_subject_phone || "N/A"}</p>
+                              <p>Vehicle: {sub.custody_subject_vehicle || "N/A"}</p>
+                              <p>Last known address: {sub.custody_subject_last_address || "N/A"}</p>
+                              {sub.custody_immediate_danger === "yes" && (
+                                <p className="text-red-400 font-medium">⚠ Immediate danger flagged</p>
+                              )}
+                            </div>
                           </div>
-                        </div>
+                        ) : (
+                          <div>
+                            <h4 className="text-sm font-semibold text-foreground mb-2">Subject Details</h4>
+                            <div className="space-y-1 text-sm text-muted-foreground">
+                              <p>Name: {sub.subject_name || "N/A"}</p>
+                              <p>Phone: {sub.subject_phone || "N/A"}</p>
+                              <p>Vehicle: {[sub.vehicle_make_model, sub.vehicle_color].filter(Boolean).join(", ") || "N/A"}</p>
+                              <p>Plate: {sub.vehicle_plate || "N/A"}</p>
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                       {sub.info_to_find && (
