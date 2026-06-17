@@ -14,10 +14,11 @@ import StepEmployment from "../components/intake/StepEmployment";
 import StepBehavior from "../components/intake/StepBehavior";
 import StepEvents from "../components/intake/StepEvents";
 import StepGoals from "../components/intake/StepGoals";
+import StepCustody from "../components/intake/StepCustody";
 import StepReview from "../components/intake/StepReview";
 
 
-const TOTAL_STEPS = 9;
+const TOTAL_STEPS = 10;
 
 const INITIAL_DATA = {
   status: "draft",
@@ -96,6 +97,53 @@ const INITIAL_DATA = {
   hiding_phone_bills: "",
   staying_late_work: "",
   secretive_devices: "",
+  new_passwords: "",
+  burner_phones: "",
+  unexplained_spending: "",
+  new_wardrobe: "",
+  changed_sleeping_habits: "",
+  affair_partner_name: "",
+  affair_partner_address: "",
+  affair_partner_employer: "",
+  affair_partner_vehicle: "",
+  affair_meeting_locations: [],
+  client_attorney_name: "",
+  client_court_case_number: "",
+  subject_ssn_last4: "",
+  subject_social_media: "",
+  subject_photo_available: "",
+  vehicle2_make_model: "",
+  vehicle2_color: "",
+  vehicle2_plate: "",
+  custody_child_names: "",
+  custody_child_dobs: "",
+  custody_child_ages: "",
+  custody_schools: "",
+  custody_daycare: "",
+  custody_activities: "",
+  custody_medical: "",
+  custody_arrangement: "",
+  custody_transport: "",
+  custody_concerns: [],
+  custody_safety_details: "",
+  custody_drug_users: "",
+  custody_weapons: "",
+  custody_avoid_persons: "",
+  custody_missed_exchanges: "",
+  custody_school_neglect: "",
+  custody_alienation: "",
+  custody_coaching: "",
+  custody_conduct_notes: "",
+  custody_violations: [],
+  custody_violations_explain: "",
+  custody_court_name: "",
+  custody_case_number: "",
+  custody_judge: "",
+  custody_attorneys: "",
+  custody_hearings: "",
+  custody_emergency_petitions: "",
+  custody_existing_orders: "",
+  custody_desired_outcome: "",
   travel_plans: "",
   info_to_find: "",
   plan_for_info: "",
@@ -213,7 +261,7 @@ export default function IntakeForm() {
   };
 
   const nextStep = () => {
-    if (currentStep === 8 && !formData.consent_acknowledged) {
+    if (currentStep === 9 && !formData.consent_acknowledged) {
       setShowConsentWarning(true);
       return;
     }
@@ -255,8 +303,9 @@ export default function IntakeForm() {
         {currentStep === 5 && <StepEmployment data={formData} onChange={handleChange} />}
         {currentStep === 6 && <StepBehavior data={formData} onChange={handleChange} />}
         {currentStep === 7 && <StepEvents data={formData} onChange={handleChange} />}
-        {currentStep === 8 && <StepGoals data={formData} onChange={handleChange} showConsentWarning={showConsentWarning} onWarningSeen={() => setShowConsentWarning(false)} />}
-        {currentStep === 9 && <StepReview data={formData} onEditStep={goToStep} />}
+        {currentStep === 8 && <StepCustody data={formData} onChange={handleChange} />}
+        {currentStep === 9 && <StepGoals data={formData} onChange={handleChange} showConsentWarning={showConsentWarning} onWarningSeen={() => setShowConsentWarning(false)} />}
+        {currentStep === 10 && <StepReview data={formData} onEditStep={goToStep} />}
 
         {/* Navigation */}
         <div className="flex items-center justify-between mt-10 pt-6 border-t border-border">

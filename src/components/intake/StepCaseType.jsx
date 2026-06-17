@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 const CASE_TYPES = [
   { value: "infidelity", label: "Infidelity / Domestic", icon: Users, desc: "Suspected unfaithfulness, domestic concerns" },
+  { value: "child_custody", label: "Child Custody / Welfare", icon: Shield, desc: "Custody violations, child safety concerns" },
   { value: "corporate", label: "Corporate / Business", icon: Building2, desc: "Employee misconduct, corporate intelligence" },
   { value: "surveillance", label: "General Surveillance", icon: Search, desc: "Monitoring, tracking, observation" },
   { value: "tscm", label: "Bug Sweep / TSCM", icon: Radio, desc: "Electronic surveillance detection" },

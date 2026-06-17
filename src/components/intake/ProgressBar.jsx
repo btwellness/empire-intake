@@ -9,8 +9,9 @@ const STEPS = [
   { id: 5, label: "Employment" },
   { id: 6, label: "Behavior" },
   { id: 7, label: "Events" },
-  { id: 8, label: "Goals" },
-  { id: 9, label: "Review" },
+  { id: 8, label: "Custody" },
+  { id: 9, label: "Goals" },
+  { id: 10, label: "Review" },
 ];
 
 export default function ProgressBar({ currentStep }) {

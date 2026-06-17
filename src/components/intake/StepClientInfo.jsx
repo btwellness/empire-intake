@@ -119,14 +119,33 @@ export default function StepClientInfo({ data, onChange }) {
       </FormCard>
 
       <FormCard title="Your Relationship to the Subject" description="Understanding your connection helps us tailor our approach.">
-        <FormField
-          name="client_relationship"
-          type="select"
-          value={data.client_relationship}
-          onChange={onChange}
-          options={RELATIONSHIP_OPTIONS}
-          placeholder="Select your relationship"
-        />
+        <div className="space-y-5">
+          <FormField
+            name="client_relationship"
+            type="select"
+            value={data.client_relationship}
+            onChange={onChange}
+            options={RELATIONSHIP_OPTIONS}
+            placeholder="Select your relationship"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              label="Attorney Name (if any)"
+              name="client_attorney_name"
+              value={data.client_attorney_name}
+              onChange={onChange}
+              placeholder="Your attorney's full name"
+              helper="Leave blank if not applicable."
+            />
+            <FormField
+              label="Court Case Number (if any)"
+              name="client_court_case_number"
+              value={data.client_court_case_number}
+              onChange={onChange}
+              placeholder="Docket or case number"
+            />
+          </div>
+        </div>
       </FormCard>
     </div>
   );

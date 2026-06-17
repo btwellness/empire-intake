@@ -50,6 +50,12 @@
     "client_relationship": {
       "type": "string"
     },
+    "client_attorney_name": {
+      "type": "string"
+    },
+    "client_court_case_number": {
+      "type": "string"
+    },
     "preferred_contact": {
       "type": "string",
       "enum": [
@@ -68,6 +74,15 @@
       "type": "string"
     },
     "subject_phone": {
+      "type": "string"
+    },
+    "subject_ssn_last4": {
+      "type": "string"
+    },
+    "subject_social_media": {
+      "type": "string"
+    },
+    "subject_photo_available": {
       "type": "string"
     },
     "subject_address": {
@@ -142,6 +157,15 @@
     "vehicle_co_own": {
       "type": "string"
     },
+    "vehicle2_make_model": {
+      "type": "string"
+    },
+    "vehicle2_color": {
+      "type": "string"
+    },
+    "vehicle2_plate": {
+      "type": "string"
+    },
     "subject_friends": {
       "type": "array",
       "items": {
@@ -155,6 +179,9 @@
       }
     },
     "opposite_sex_relatives": {
+      "type": "string"
+    },
+    "subject_social_media_accounts": {
       "type": "string"
     },
     "work_name": {
@@ -256,7 +283,133 @@
     "secretive_devices": {
       "type": "string"
     },
+    "new_passwords": {
+      "type": "string"
+    },
+    "burner_phones": {
+      "type": "string"
+    },
+    "unexplained_spending": {
+      "type": "string"
+    },
+    "new_wardrobe": {
+      "type": "string"
+    },
+    "changed_sleeping_habits": {
+      "type": "string"
+    },
     "travel_plans": {
+      "type": "string"
+    },
+    "affair_partner_name": {
+      "type": "string"
+    },
+    "affair_partner_address": {
+      "type": "string"
+    },
+    "affair_partner_employer": {
+      "type": "string"
+    },
+    "affair_partner_vehicle": {
+      "type": "string"
+    },
+    "affair_meeting_locations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "custody_child_names": {
+      "type": "string"
+    },
+    "custody_child_dobs": {
+      "type": "string"
+    },
+    "custody_child_ages": {
+      "type": "string"
+    },
+    "custody_schools": {
+      "type": "string"
+    },
+    "custody_daycare": {
+      "type": "string"
+    },
+    "custody_activities": {
+      "type": "string"
+    },
+    "custody_medical": {
+      "type": "string"
+    },
+    "custody_arrangement": {
+      "type": "string"
+    },
+    "custody_transport": {
+      "type": "string"
+    },
+    "custody_concerns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "custody_safety_details": {
+      "type": "string"
+    },
+    "custody_drug_users": {
+      "type": "string"
+    },
+    "custody_weapons": {
+      "type": "string"
+    },
+    "custody_avoid_persons": {
+      "type": "string"
+    },
+    "custody_missed_exchanges": {
+      "type": "string"
+    },
+    "custody_school_neglect": {
+      "type": "string"
+    },
+    "custody_alienation": {
+      "type": "string"
+    },
+    "custody_coaching": {
+      "type": "string"
+    },
+    "custody_conduct_notes": {
+      "type": "string"
+    },
+    "custody_violations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "custody_violations_explain": {
+      "type": "string"
+    },
+    "custody_court_name": {
+      "type": "string"
+    },
+    "custody_case_number": {
+      "type": "string"
+    },
+    "custody_judge": {
+      "type": "string"
+    },
+    "custody_attorneys": {
+      "type": "string"
+    },
+    "custody_hearings": {
+      "type": "string"
+    },
+    "custody_emergency_petitions": {
+      "type": "string"
+    },
+    "custody_existing_orders": {
+      "type": "string"
+    },
+    "custody_desired_outcome": {
       "type": "string"
     },
     "info_to_find": {

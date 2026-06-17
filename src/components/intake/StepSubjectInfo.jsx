@@ -49,6 +49,32 @@ export default function StepSubjectInfo({ data, onChange }) {
             onChange={onChange}
             placeholder="If known"
           />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              label="SSN (last 4 digits, if known)"
+              name="subject_ssn_last4"
+              value={data.subject_ssn_last4}
+              onChange={onChange}
+              placeholder="e.g., 1234"
+              helper="Optional — helps confirm identity."
+            />
+            <FormField
+              label="Photo Available?"
+              name="subject_photo_available"
+              type="radio"
+              value={data.subject_photo_available}
+              onChange={onChange}
+              options={YES_NO}
+            />
+          </div>
+          <FormField
+            label="Social Media Accounts"
+            name="subject_social_media"
+            value={data.subject_social_media}
+            onChange={onChange}
+            placeholder="Facebook, Instagram, Snapchat usernames or profile URLs"
+            helper="Any known social media handles or profile links."
+          />
         </div>
       </FormCard>
 
@@ -164,7 +190,7 @@ export default function StepSubjectInfo({ data, onChange }) {
         </div>
       </FormCard>
 
-      <FormCard title="Vehicle Information" description="If the subject has a vehicle, this information is critical for surveillance.">
+      <FormCard title="Vehicle #1" description="Primary vehicle information — critical for surveillance.">
         <div className="space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField label="Make & Model" name="vehicle_make_model" value={data.vehicle_make_model} onChange={onChange} placeholder="e.g., Toyota Camry" />
@@ -189,6 +215,16 @@ export default function StepSubjectInfo({ data, onChange }) {
             onChange={onChange}
             options={YES_NO}
           />
+        </div>
+      </FormCard>
+
+      <FormCard title="Vehicle #2 (if applicable)" description="Second vehicle if the subject drives more than one.">
+        <div className="space-y-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField label="Make & Model" name="vehicle2_make_model" value={data.vehicle2_make_model} onChange={onChange} placeholder="e.g., Honda Accord" />
+            <FormField label="Color" name="vehicle2_color" value={data.vehicle2_color} onChange={onChange} placeholder="e.g., Black" />
+          </div>
+          <FormField label="State & Plate Number" name="vehicle2_plate" value={data.vehicle2_plate} onChange={onChange} placeholder="e.g., NJ XYZ-5678" />
         </div>
       </FormCard>
     </div>

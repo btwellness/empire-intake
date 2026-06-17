@@ -121,6 +121,81 @@ export default function StepBehavior({ data, onChange }) {
             onChange={onChange}
             options={YES_NO}
           />
+          <FormField
+            label="Created new passwords or changed existing ones?"
+            name="new_passwords"
+            type="radio"
+            value={data.new_passwords}
+            onChange={onChange}
+            options={YES_NO}
+          />
+          <FormField
+            label="Suspected use of a burner/secondary phone?"
+            name="burner_phones"
+            type="radio"
+            value={data.burner_phones}
+            onChange={onChange}
+            options={YES_NO}
+          />
+          <FormField
+            label="Unexplained spending or cash withdrawals?"
+            name="unexplained_spending"
+            type="radio"
+            value={data.unexplained_spending}
+            onChange={onChange}
+            options={YES_NO}
+          />
+          <FormField
+            label="New wardrobe, cosmetic changes, or appearance upgrades?"
+            name="new_wardrobe"
+            type="radio"
+            value={data.new_wardrobe}
+            onChange={onChange}
+            options={YES_NO}
+          />
+          <FormField
+            label="Changed sleeping habits (staying up late, sleeping in separate room)?"
+            name="changed_sleeping_habits"
+            type="radio"
+            value={data.changed_sleeping_habits}
+            onChange={onChange}
+            options={YES_NO}
+          />
+        </div>
+      </FormCard>
+
+      <FormCard title="Possible Affair Partner" description="If you suspect someone specific, share what you know. Any detail helps.">
+        <div className="space-y-5">
+          <FormField
+            label="Possible Affair Partner Name"
+            name="affair_partner_name"
+            value={data.affair_partner_name}
+            onChange={onChange}
+            placeholder="Full name or partial name if known"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              label="Their Address"
+              name="affair_partner_address"
+              value={data.affair_partner_address}
+              onChange={onChange}
+              placeholder="Home or work address if known"
+            />
+            <FormField
+              label="Their Employer"
+              name="affair_partner_employer"
+              value={data.affair_partner_employer}
+              onChange={onChange}
+              placeholder="Where they work"
+            />
+          </div>
+          <FormField
+            label="Their Vehicle"
+            name="affair_partner_vehicle"
+            value={data.affair_partner_vehicle}
+            onChange={onChange}
+            placeholder="Make, model, color, plate if known"
+          />
         </div>
       </FormCard>
     </div>
