@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
@@ -17,8 +17,55 @@ import StepGoals from "../components/intake/StepGoals";
 import StepCustody from "../components/intake/StepCustody";
 import StepReview from "../components/intake/StepReview";
 
+// Define which step components appear for each case type (after the initial CaseType step)
+const FLOW_DEFINITIONS = {
+  infidelity: [
+    { id: "client_info",   label: "Your Info",     component: "StepClientInfo" },
+    { id: "subject_info",  label: "Subject",        component: "StepSubjectInfo" },
+    { id: "relationships", label: "Relationships",  component: "StepRelationships" },
+    { id: "employment",    label: "Employment",     component: "StepEmployment" },
+    { id: "behavior",      label: "Behavior",       component: "StepBehavior" },
+    { id: "events",        label: "Events",         component: "StepEvents" },
+    { id: "goals",         label: "Goals",          component: "StepGoals" },
+    { id: "review",        label: "Review",         component: "StepReview" },
+  ],
+  child_custody: [
+    { id: "client_info",   label: "Your Info",     component: "StepClientInfo" },
+    { id: "custody",       label: "Custody Case",  component: "StepCustody" },
+    { id: "employment",    label: "Employment",    component: "StepEmployment" },
+    { id: "goals",         label: "Goals",         component: "StepGoals" },
+    { id: "review",        label: "Review",        component: "StepReview" },
+  ],
+  corporate: [
+    { id: "client_info",  label: "Your Info",    component: "StepClientInfo" },
+    { id: "subject_info", label: "Subject",       component: "StepSubjectInfo" },
+    { id: "employment",   label: "Employment",    component: "StepEmployment" },
+    { id: "goals",        label: "Goals",         component: "StepGoals" },
+    { id: "review",       label: "Review",        component: "StepReview" },
+  ],
+  default: [
+    { id: "client_info",  label: "Your Info",  component: "StepClientInfo" },
+    { id: "subject_info", label: "Subject",     component: "StepSubjectInfo" },
+    { id: "goals",        label: "Goals",       component: "StepGoals" },
+    { id: "review",       label: "Review",      component: "StepReview" },
+  ],
+};
 
-const TOTAL_STEPS = 10;
+function getFlow(caseType) {
+  return FLOW_DEFINITIONS[caseType] || FLOW_DEFINITIONS.default;
+}
+
+const STEP_COMPONENTS = {
+  StepClientInfo,
+  StepSubjectInfo,
+  StepRelationships,
+  StepEmployment,
+  StepBehavior,
+  StepEvents,
+  StepGoals,
+  StepCustody,
+  StepReview,
+};
 
 const INITIAL_DATA = {
   status: "draft",
@@ -32,11 +79,16 @@ const INITIAL_DATA = {
   client_state: "",
   client_zip: "",
   client_relationship: "",
+  client_attorney_name: "",
+  client_court_case_number: "",
   preferred_contact: "",
   safe_contact_times: "",
   subject_name: "",
   subject_nicknames: "",
   subject_phone: "",
+  subject_ssn_last4: "",
+  subject_social_media: "",
+  subject_photo_available: "",
   subject_address: "",
   subject_city: "",
   subject_state: "",
@@ -61,6 +113,9 @@ const INITIAL_DATA = {
   vehicle_year: "",
   vehicle_identifiers: "",
   vehicle_co_own: "",
+  vehicle2_make_model: "",
+  vehicle2_color: "",
+  vehicle2_plate: "",
   subject_friends: [],
   subject_children: [],
   opposite_sex_relatives: "",
@@ -107,14 +162,7 @@ const INITIAL_DATA = {
   affair_partner_employer: "",
   affair_partner_vehicle: "",
   affair_meeting_locations: [],
-  client_attorney_name: "",
-  client_court_case_number: "",
-  subject_ssn_last4: "",
-  subject_social_media: "",
-  subject_photo_available: "",
-  vehicle2_make_model: "",
-  vehicle2_color: "",
-  vehicle2_plate: "",
+  travel_plans: "",
   custody_subject_name: "",
   custody_subject_relationship: "",
   custody_subject_relationship_to_client: "",
@@ -152,7 +200,6 @@ const INITIAL_DATA = {
   custody_emergency_petitions: "",
   custody_existing_orders: "",
   custody_desired_outcome: "",
-  travel_plans: "",
   info_to_find: "",
   plan_for_info: "",
   has_evidence: "",
@@ -164,6 +211,7 @@ const INITIAL_DATA = {
 
 export default function IntakeForm() {
   const navigate = useNavigate();
+  // step 1 = case type selection; step 2+ = flow steps (1-indexed into the flow array)
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState(INITIAL_DATA);
   const [submissionId, setSubmissionId] = useState(null);
@@ -171,13 +219,14 @@ export default function IntakeForm() {
   const [submitting, setSubmitting] = useState(false);
   const [showConsentWarning, setShowConsentWarning] = useState(false);
 
-  // Check for draft from URL
+  const flow = useMemo(() => getFlow(formData.case_type), [formData.case_type]);
+  // Total steps = 1 (case type) + flow steps
+  const totalSteps = 1 + flow.length;
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const draftId = params.get("draft");
-    if (draftId) {
-      loadDraft(draftId);
-    }
+    if (draftId) loadDraft(draftId);
   }, []);
 
   const loadDraft = async (id) => {
@@ -195,10 +244,16 @@ export default function IntakeForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }, []);
 
+  // When case type changes, reset to step 1 (the case type step) if already past it
+  const handleCaseTypeChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Don't reset step — stay on step 1 while they pick
+  }, []);
+
   const saveDraft = async () => {
     setSaving(true);
     const saveData = { ...formData, current_step: currentStep, status: "draft" };
-    // Remove id and built-in fields before saving
     delete saveData.id;
     delete saveData.created_date;
     delete saveData.updated_date;
@@ -217,17 +272,16 @@ export default function IntakeForm() {
   const handleSubmit = async () => {
     if (!formData.consent_acknowledged) {
       toast.error("Please acknowledge the confidentiality agreement before submitting.");
+      setShowConsentWarning(true);
       return;
     }
-
     setSubmitting(true);
     try {
-      const submitData = { ...formData, status: "submitted", current_step: TOTAL_STEPS };
+      const submitData = { ...formData, status: "submitted", current_step: totalSteps };
       delete submitData.id;
       delete submitData.created_date;
       delete submitData.updated_date;
       delete submitData.created_by;
-
       submitData.internal_summary = generateSummary(formData);
 
       if (submissionId) {
@@ -249,31 +303,29 @@ export default function IntakeForm() {
     lines.push(`CASE TYPE: ${d.case_type || "Not specified"}`);
     lines.push(`URGENCY: ${d.urgency || "Not specified"}`);
     lines.push(`CLIENT: ${d.client_name || "Unknown"} | ${d.client_phone || ""} | ${d.client_email || ""}`);
-    lines.push(`RELATIONSHIP: ${d.client_relationship || "Not specified"}`);
-    lines.push(`SUBJECT: ${d.subject_name || "Unknown"}`);
-    lines.push(`SUBJECT ADDRESS: ${[d.subject_address, d.subject_city, d.subject_state].filter(Boolean).join(", ") || "Not provided"}`);
-    lines.push(`SUBJECT VEHICLE: ${[d.vehicle_make_model, d.vehicle_color, d.vehicle_plate].filter(Boolean).join(", ") || "Not provided"}`);
-    lines.push(`EMPLOYER: ${d.work_name || "Not provided"}`);
+    if (d.case_type === "child_custody") {
+      lines.push(`INVESTIGATED PARTY: ${d.custody_subject_name || "Unknown"}`);
+      lines.push(`CHILD(REN): ${d.custody_child_names || "Not provided"}`);
+      lines.push(`CUSTODY ARRANGEMENT: ${d.custody_arrangement || "Not provided"}`);
+    } else {
+      lines.push(`SUBJECT: ${d.subject_name || "Unknown"}`);
+      lines.push(`SUBJECT ADDRESS: ${[d.subject_address, d.subject_city, d.subject_state].filter(Boolean).join(", ") || "Not provided"}`);
+      lines.push(`EMPLOYER: ${d.work_name || "Not provided"}`);
+    }
     lines.push(`INFORMATION SOUGHT: ${d.info_to_find || "Not specified"}`);
-    lines.push(`INTENDED USE: ${d.plan_for_info || "Not specified"}`);
     lines.push(`EVIDENCE: ${d.evidence_files?.length ? `${d.evidence_files.length} file(s)` : "None"}`);
-
-    const redFlags = [];
-    if (d.hiding_phone_bills === "yes") redFlags.push("Hiding phone/bills");
-    if (d.staying_late_work === "yes") redFlags.push("Staying late at work");
-    if (d.secretive_devices === "yes") redFlags.push("Secretive with devices");
-    if (d.suspicious_behavior === "yes") redFlags.push("Suspicious behavior reported");
-    lines.push(`RED FLAGS: ${redFlags.length ? redFlags.join(", ") : "None noted"}`);
-
     return lines.join("\n");
   };
 
   const nextStep = () => {
-    if (currentStep === 9 && !formData.consent_acknowledged) {
+    // On the goals step (second to last), enforce consent
+    const goalsStepIndex = flow.findIndex(s => s.component === "StepGoals");
+    const goalsAbsoluteStep = goalsStepIndex >= 0 ? goalsStepIndex + 2 : -1;
+    if (currentStep === goalsAbsoluteStep && !formData.consent_acknowledged) {
       setShowConsentWarning(true);
       return;
     }
-    if (currentStep < TOTAL_STEPS) {
+    if (currentStep < totalSteps) {
       setCurrentStep((s) => s + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -291,31 +343,51 @@ export default function IntakeForm() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Render the current step component
+  const renderStep = () => {
+    if (currentStep === 1) {
+      return <StepCaseType data={formData} onChange={handleCaseTypeChange} />;
+    }
+    const flowStep = flow[currentStep - 2]; // -2 because step 1 is case type
+    if (!flowStep) return null;
+    const Component = STEP_COMPONENTS[flowStep.component];
+    if (!Component) return null;
+
+    if (flowStep.component === "StepGoals") {
+      return (
+        <Component
+          data={formData}
+          onChange={handleChange}
+          showConsentWarning={showConsentWarning}
+          onWarningSeen={() => setShowConsentWarning(false)}
+        />
+      );
+    }
+    if (flowStep.component === "StepReview") {
+      return <Component data={formData} onEditStep={goToStep} />;
+    }
+    return <Component data={formData} onChange={handleChange} />;
+  };
+
+  // Build step labels for progress bar
+  const progressSteps = useMemo(() => [
+    { id: 1, label: "Case Type" },
+    ...flow.map((s, i) => ({ id: i + 2, label: s.label })),
+  ], [flow]);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* Sticky Progress */}
       <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
         <div className="max-w-3xl mx-auto px-4 py-4">
-          <ProgressBar currentStep={currentStep} />
+          <ProgressBar currentStep={currentStep} steps={progressSteps} />
         </div>
       </div>
 
-      {/* Form Content */}
       <main className="max-w-3xl mx-auto px-4 py-8 md:py-12">
-        {currentStep === 1 && <StepCaseType data={formData} onChange={handleChange} />}
-        {currentStep === 2 && <StepClientInfo data={formData} onChange={handleChange} />}
-        {currentStep === 3 && <StepSubjectInfo data={formData} onChange={handleChange} />}
-        {currentStep === 4 && <StepRelationships data={formData} onChange={handleChange} />}
-        {currentStep === 5 && <StepEmployment data={formData} onChange={handleChange} />}
-        {currentStep === 6 && <StepBehavior data={formData} onChange={handleChange} />}
-        {currentStep === 7 && <StepEvents data={formData} onChange={handleChange} />}
-        {currentStep === 8 && <StepCustody data={formData} onChange={handleChange} />}
-        {currentStep === 9 && <StepGoals data={formData} onChange={handleChange} showConsentWarning={showConsentWarning} onWarningSeen={() => setShowConsentWarning(false)} />}
-        {currentStep === 10 && <StepReview data={formData} onEditStep={goToStep} />}
+        {renderStep()}
 
-        {/* Navigation */}
         <div className="flex items-center justify-between mt-10 pt-6 border-t border-border">
           <div>
             {currentStep > 1 && (
@@ -341,7 +413,7 @@ export default function IntakeForm() {
               {saving ? "Saving..." : "Save Draft"}
             </Button>
 
-            {currentStep < TOTAL_STEPS ? (
+            {currentStep < totalSteps ? (
               <Button
                 onClick={nextStep}
                 className="bg-primary text-primary-foreground hover:bg-primary/90"

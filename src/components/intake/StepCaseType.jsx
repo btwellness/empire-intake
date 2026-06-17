@@ -4,13 +4,13 @@ import { Shield, Users, Building2, Radio, Search, FileQuestion } from "lucide-re
 import { cn } from "@/lib/utils";
 
 const CASE_TYPES = [
-  { value: "infidelity", label: "Infidelity / Domestic", icon: Users, desc: "Suspected unfaithfulness, domestic concerns" },
-  { value: "child_custody", label: "Child Custody / Welfare", icon: Shield, desc: "Custody violations, child safety concerns" },
-  { value: "corporate", label: "Corporate / Business", icon: Building2, desc: "Employee misconduct, corporate intelligence" },
-  { value: "surveillance", label: "General Surveillance", icon: Search, desc: "Monitoring, tracking, observation" },
-  { value: "tscm", label: "Bug Sweep / TSCM", icon: Radio, desc: "Electronic surveillance detection" },
-  { value: "background", label: "Background Check", icon: Shield, desc: "Personal or professional vetting" },
-  { value: "other", label: "Other Investigation", icon: FileQuestion, desc: "Something not listed here" },
+  { value: "infidelity", label: "Infidelity", icon: Users, desc: "Suspected unfaithfulness — monitoring a spouse or partner" },
+  { value: "child_custody", label: "Child Custody / Welfare", icon: Shield, desc: "Investigating a co-parent or ex for unfit parenting, custody violations, or child safety concerns" },
+  { value: "corporate", label: "Corporate / Business", icon: Building2, desc: "Employee misconduct, corporate intelligence, due diligence" },
+  { value: "surveillance", label: "General Surveillance", icon: Search, desc: "Monitoring, tracking, or observation of an individual" },
+  { value: "tscm", label: "Bug Sweep / TSCM", icon: Radio, desc: "Electronic surveillance detection and countermeasures" },
+  { value: "background", label: "Background Check", icon: Shield, desc: "Personal or professional vetting of an individual" },
+  { value: "other", label: "Other Investigation", icon: FileQuestion, desc: "Something not listed above — describe your situation" },
 ];
 
 const URGENCY_OPTIONS = [
