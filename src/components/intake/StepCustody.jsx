@@ -83,13 +83,6 @@ export default function StepCustody({ data, onChange }) {
             rows={2}
           />
           <FormField
-            label="When did you last see or speak with the child?"
-            name="custody_last_contact"
-            value={data.custody_last_contact}
-            onChange={onChange}
-            placeholder="Date and how (in person, phone, video call...)"
-          />
-          <FormField
             label="Do you believe the child is in immediate danger right now?"
             name="custody_immediate_danger"
             type="radio"
@@ -144,6 +137,13 @@ export default function StepCustody({ data, onChange }) {
       {/* SECTION 2: Where the Child May Be */}
       <FormCard title="Where the Child May Be" description="Help us locate the child as quickly as possible.">
         <div className="space-y-5">
+          <FormField
+            label="When did you last see or speak with the child?"
+            name="custody_last_contact"
+            value={data.custody_last_contact}
+            onChange={onChange}
+            placeholder="Date and how (in person, phone, video call...)"
+          />
           <FormField
             label="Where do you believe the child is right now?"
             name="custody_child_current_location"
