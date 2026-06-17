@@ -269,6 +269,34 @@ const INITIAL_DATA = {
   current_step: 1,
 };
 
+const LOCAL_KEY = "empire_intake_draft";
+const LOCAL_TTL = 24 * 60 * 60 * 1000; // 24 hours
+
+function loadLocal() {
+  try {
+    const raw = localStorage.getItem(LOCAL_KEY);
+    if (!raw) return null;
+    const { data, step, savedAt } = JSON.parse(raw);
+    if (Date.now() - savedAt > LOCAL_TTL) {
+      localStorage.removeItem(LOCAL_KEY);
+      return null;
+    }
+    return { data, step };
+  } catch {
+    return null;
+  }
+}
+
+function saveLocal(data, step) {
+  try {
+    localStorage.setItem(LOCAL_KEY, JSON.stringify({ data, step, savedAt: Date.now() }));
+  } catch {}
+}
+
+function clearLocal() {
+  try { localStorage.removeItem(LOCAL_KEY); } catch {}
+}
+
 export default function IntakeForm() {
   const navigate = useNavigate();
   // step 1 = case type selection; step 2+ = flow steps (1-indexed into the flow array)
@@ -286,7 +314,16 @@ export default function IntakeForm() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const draftId = params.get("draft");
-    if (draftId) loadDraft(draftId);
+    if (draftId) {
+      loadDraft(draftId);
+    } else {
+      const local = loadLocal();
+      if (local) {
+        setFormData({ ...INITIAL_DATA, ...local.data });
+        setCurrentStep(local.step || 1);
+        toast.info("Your previous session has been restored.");
+      }
+    }
   }, []);
 
   const loadDraft = async (id) => {
@@ -301,15 +338,23 @@ export default function IntakeForm() {
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  }, []);
+    setFormData((prev) => {
+      const updated = { ...prev, [name]: value };
+      saveLocal(updated, currentStep);
+      return updated;
+    });
+  }, [currentStep]);
 
   // When case type changes, reset to step 1 (the case type step) if already past it
   const handleCaseTypeChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => {
+      const updated = { ...prev, [name]: value };
+      saveLocal(updated, currentStep);
+      return updated;
+    });
     // Don't reset step — stay on step 1 while they pick
-  }, []);
+  }, [currentStep]);
 
   const saveToBackend = async (data, id) => {
     const res = await base44.functions.invoke("saveIntake", { submissionId: id || null, data });
@@ -356,6 +401,7 @@ export default function IntakeForm() {
       base44.functions.invoke("pushToNotion", { submissionId: finalId }).catch((e) =>
         console.warn("Notion mirror failed:", e)
       );
+      clearLocal();
       navigate("/thank-you");
     } catch (err) {
       toast.error("Submission failed: " + (err?.message || "Unknown error"));
@@ -392,20 +438,25 @@ export default function IntakeForm() {
       return;
     }
     if (currentStep < totalSteps) {
-      setCurrentStep((s) => s + 1);
+      const next = currentStep + 1;
+      setCurrentStep(next);
+      saveLocal(formData, next);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const prevStep = () => {
     if (currentStep > 1) {
-      setCurrentStep((s) => s - 1);
+      const prev = currentStep - 1;
+      setCurrentStep(prev);
+      saveLocal(formData, prev);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const goToStep = (step) => {
     setCurrentStep(step);
+    saveLocal(formData, step);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
