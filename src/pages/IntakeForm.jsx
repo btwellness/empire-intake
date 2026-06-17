@@ -358,7 +358,10 @@ export default function IntakeForm() {
 
   const saveToBackend = async (data, id) => {
     const res = await base44.functions.invoke("saveIntake", { submissionId: id || null, data });
-    return res.data.id;
+    // SDK returns axios response — handle both res.data and res directly
+    const result = res?.data ?? res;
+    if (!result?.id) throw new Error("No ID returned from server");
+    return result.id;
   };
 
   const saveDraft = async () => {
@@ -374,7 +377,8 @@ export default function IntakeForm() {
       if (!submissionId) setSubmissionId(id);
       toast.success("Draft saved securely");
     } catch (err) {
-      toast.error("Failed to save: " + (err?.message || "Unknown error"));
+      console.error("Save draft error:", err);
+      alert("Save failed: " + (err?.message || "Unknown error. Check console."));
     } finally {
       setSaving(false);
     }
