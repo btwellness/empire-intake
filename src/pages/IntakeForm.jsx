@@ -326,6 +326,11 @@ export default function IntakeForm() {
     }
   }, []);
 
+  // Auto-save to localStorage whenever formData or step changes
+  useEffect(() => {
+    saveLocal(formData, currentStep);
+  }, [formData, currentStep]);
+
   const loadDraft = async (id) => {
     const submissions = await base44.entities.IntakeSubmission.filter({ id });
     if (submissions.length > 0) {
@@ -338,23 +343,13 @@ export default function IntakeForm() {
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFormData((prev) => {
-      const updated = { ...prev, [name]: value };
-      saveLocal(updated, currentStep);
-      return updated;
-    });
-  }, [currentStep]);
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }, []);
 
-  // When case type changes, reset to step 1 (the case type step) if already past it
   const handleCaseTypeChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFormData((prev) => {
-      const updated = { ...prev, [name]: value };
-      saveLocal(updated, currentStep);
-      return updated;
-    });
-    // Don't reset step — stay on step 1 while they pick
-  }, [currentStep]);
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }, []);
 
   const saveToBackend = async (data, id) => {
     const res = await base44.functions.invoke("saveIntake", { submissionId: id || null, data });
@@ -444,7 +439,6 @@ export default function IntakeForm() {
     if (currentStep < totalSteps) {
       const next = currentStep + 1;
       setCurrentStep(next);
-      saveLocal(formData, next);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -453,14 +447,12 @@ export default function IntakeForm() {
     if (currentStep > 1) {
       const prev = currentStep - 1;
       setCurrentStep(prev);
-      saveLocal(formData, prev);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const goToStep = (step) => {
     setCurrentStep(step);
-    saveLocal(formData, step);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
