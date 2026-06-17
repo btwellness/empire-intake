@@ -181,9 +181,6 @@
     "opposite_sex_relatives": {
       "type": "string"
     },
-    "subject_social_media_accounts": {
-      "type": "string"
-    },
     "work_name": {
       "type": "string"
     },
@@ -298,9 +295,6 @@
     "changed_sleeping_habits": {
       "type": "string"
     },
-    "travel_plans": {
-      "type": "string"
-    },
     "affair_partner_name": {
       "type": "string"
     },
@@ -319,6 +313,9 @@
         "type": "string"
       }
     },
+    "travel_plans": {
+      "type": "string"
+    },
     "custody_child_names": {
       "type": "string"
     },
@@ -326,6 +323,180 @@
       "type": "string"
     },
     "custody_child_ages": {
+      "type": "string"
+    },
+    "custody_child_prior_residence": {
+      "type": "string"
+    },
+    "custody_last_contact": {
+      "type": "string"
+    },
+    "custody_immediate_danger": {
+      "type": "string"
+    },
+    "custody_immediate_danger_details": {
+      "type": "string"
+    },
+    "custody_child_current_location": {
+      "type": "string"
+    },
+    "custody_child_with_whom": {
+      "type": "string"
+    },
+    "custody_child_sighting": {
+      "type": "string"
+    },
+    "custody_subject_stated_location": {
+      "type": "string"
+    },
+    "custody_subject_stated_location_details": {
+      "type": "string"
+    },
+    "custody_possible_locations": {
+      "type": "string"
+    },
+    "custody_subject_name": {
+      "type": "string"
+    },
+    "custody_subject_dob": {
+      "type": "string"
+    },
+    "custody_subject_relationship": {
+      "type": "string"
+    },
+    "custody_subject_relationship_to_client": {
+      "type": "string"
+    },
+    "custody_subject_last_address": {
+      "type": "string"
+    },
+    "custody_subject_address": {
+      "type": "string"
+    },
+    "custody_subject_phone": {
+      "type": "string"
+    },
+    "custody_subject_employer": {
+      "type": "string"
+    },
+    "custody_subject_vehicle": {
+      "type": "string"
+    },
+    "custody_subject_social_media": {
+      "type": "string"
+    },
+    "custody_subject_why": {
+      "type": "string"
+    },
+    "custody_partner_name": {
+      "type": "string"
+    },
+    "custody_partner_details": {
+      "type": "string"
+    },
+    "custody_partner_how_learned": {
+      "type": "string"
+    },
+    "custody_partner_contacted_you": {
+      "type": "string"
+    },
+    "custody_partner_child_living_with": {
+      "type": "string"
+    },
+    "custody_partner_safety_concerns": {
+      "type": "string"
+    },
+    "custody_exchange_date": {
+      "type": "string"
+    },
+    "custody_return_date": {
+      "type": "string"
+    },
+    "custody_exchange_location": {
+      "type": "string"
+    },
+    "custody_exchange_reason": {
+      "type": "string"
+    },
+    "custody_exchange_agreed_temp": {
+      "type": "string"
+    },
+    "custody_exchange_condition": {
+      "type": "string"
+    },
+    "custody_exchange_relocation_agreed": {
+      "type": "string"
+    },
+    "custody_refusal_date": {
+      "type": "string"
+    },
+    "custody_refusal_statement": {
+      "type": "string"
+    },
+    "custody_refusal_threatened_no_return": {
+      "type": "string"
+    },
+    "custody_refusal_contact_allowed": {
+      "type": "string"
+    },
+    "custody_refusal_blocked": {
+      "type": "string"
+    },
+    "custody_refusal_threats": {
+      "type": "string"
+    },
+    "custody_refusal_threats_details": {
+      "type": "string"
+    },
+    "custody_criminal_felony": {
+      "type": "string"
+    },
+    "custody_criminal_felony_details": {
+      "type": "string"
+    },
+    "custody_criminal_child_related": {
+      "type": "string"
+    },
+    "custody_on_probation": {
+      "type": "string"
+    },
+    "custody_probation_officer": {
+      "type": "string"
+    },
+    "custody_probation_restrictions": {
+      "type": "string"
+    },
+    "custody_cps_history": {
+      "type": "string"
+    },
+    "custody_cps_history_details": {
+      "type": "string"
+    },
+    "custody_other_safety_issues": {
+      "type": "string"
+    },
+    "custody_called_police": {
+      "type": "string"
+    },
+    "custody_police_response": {
+      "type": "string"
+    },
+    "custody_called_cps": {
+      "type": "string"
+    },
+    "custody_cps_response": {
+      "type": "string"
+    },
+    "custody_welfare_check": {
+      "type": "string"
+    },
+    "custody_welfare_check_results": {
+      "type": "string"
+    },
+    "custody_child_location_tip": {
+      "type": "string"
+    },
+    "custody_divorced": {
       "type": "string"
     },
     "custody_schools": {
@@ -344,6 +515,12 @@
       "type": "string"
     },
     "custody_transport": {
+      "type": "string"
+    },
+    "custody_visitation_schedule": {
+      "type": "string"
+    },
+    "custody_contact_restrictions": {
       "type": "string"
     },
     "custody_concerns": {
