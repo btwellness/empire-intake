@@ -344,12 +344,17 @@ export default function IntakeForm() {
       delete submitData.created_by;
       submitData.internal_summary = generateSummary(formData);
 
+      let finalId = submissionId;
       if (submissionId) {
         await base44.entities.IntakeSubmission.update(submissionId, submitData);
       } else {
         const created = await base44.entities.IntakeSubmission.create(submitData);
+        finalId = created.id;
         setSubmissionId(created.id);
       }
+      base44.functions.pushToNotion({ submissionId: finalId }).catch((e) =>
+        console.warn("Notion mirror failed:", e)
+      );
       navigate("/thank-you");
     } catch (err) {
       toast.error("Submission failed: " + (err?.message || "Unknown error"));
