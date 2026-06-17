@@ -311,22 +311,28 @@ export default function IntakeForm() {
     // Don't reset step — stay on step 1 while they pick
   }, []);
 
+  const saveToBackend = async (data, id) => {
+    const res = await base44.functions.invoke("saveIntake", { submissionId: id || null, data });
+    return res.data.id;
+  };
+
   const saveDraft = async () => {
     setSaving(true);
-    const saveData = { ...formData, current_step: currentStep, status: "draft" };
-    delete saveData.id;
-    delete saveData.created_date;
-    delete saveData.updated_date;
-    delete saveData.created_by;
+    try {
+      const saveData = { ...formData, current_step: currentStep, status: "draft" };
+      delete saveData.id;
+      delete saveData.created_date;
+      delete saveData.updated_date;
+      delete saveData.created_by;
 
-    if (submissionId) {
-      await base44.entities.IntakeSubmission.update(submissionId, saveData);
-    } else {
-      const created = await base44.entities.IntakeSubmission.create(saveData);
-      setSubmissionId(created.id);
+      const id = await saveToBackend(saveData, submissionId);
+      if (!submissionId) setSubmissionId(id);
+      toast.success("Draft saved securely");
+    } catch (err) {
+      toast.error("Failed to save: " + (err?.message || "Unknown error"));
+    } finally {
+      setSaving(false);
     }
-    setSaving(false);
-    toast.success("Draft saved securely");
   };
 
   const handleSubmit = async () => {
@@ -344,15 +350,10 @@ export default function IntakeForm() {
       delete submitData.created_by;
       submitData.internal_summary = generateSummary(formData);
 
-      let finalId = submissionId;
-      if (submissionId) {
-        await base44.entities.IntakeSubmission.update(submissionId, submitData);
-      } else {
-        const created = await base44.entities.IntakeSubmission.create(submitData);
-        finalId = created.id;
-        setSubmissionId(created.id);
-      }
-      base44.functions.pushToNotion({ submissionId: finalId }).catch((e) =>
+      const finalId = await saveToBackend(submitData, submissionId);
+      if (!submissionId) setSubmissionId(finalId);
+
+      base44.functions.invoke("pushToNotion", { submissionId: finalId }).catch((e) =>
         console.warn("Notion mirror failed:", e)
       );
       navigate("/thank-you");
