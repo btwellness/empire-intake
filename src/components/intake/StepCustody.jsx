@@ -111,6 +111,77 @@ export default function StepCustody({ data, onChange }) {
         </div>
       </FormCard>
 
+      <FormCard
+        title="Person Being Investigated"
+        description="Tell us about the individual whose conduct or fitness as a parent is in question. This is the person our investigators will be focused on."
+      >
+        <div className="space-y-5">
+          <FormField
+            label="Full Name of Person Being Investigated"
+            name="custody_subject_name"
+            value={data.custody_subject_name}
+            onChange={onChange}
+            placeholder="Full legal name"
+            required
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              label="Their Relationship to the Child(ren)"
+              name="custody_subject_relationship"
+              value={data.custody_subject_relationship}
+              onChange={onChange}
+              placeholder="e.g., Father, Mother, Stepparent, Boyfriend of Mother..."
+            />
+            <FormField
+              label="Their Relationship to You"
+              name="custody_subject_relationship_to_client"
+              value={data.custody_subject_relationship_to_client}
+              onChange={onChange}
+              placeholder="e.g., Ex-spouse, Co-parent, Former partner..."
+            />
+          </div>
+          <FormField
+            label="Their Current Address"
+            name="custody_subject_address"
+            value={data.custody_subject_address}
+            onChange={onChange}
+            placeholder="Where this person currently lives"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              label="Their Phone Number"
+              name="custody_subject_phone"
+              value={data.custody_subject_phone}
+              onChange={onChange}
+              placeholder="If known"
+            />
+            <FormField
+              label="Their Employer / Workplace"
+              name="custody_subject_employer"
+              value={data.custody_subject_employer}
+              onChange={onChange}
+              placeholder="Where they work, if known"
+            />
+          </div>
+          <FormField
+            label="Their Vehicle(s)"
+            name="custody_subject_vehicle"
+            value={data.custody_subject_vehicle}
+            onChange={onChange}
+            placeholder="Make, model, color, and plate number(s)"
+          />
+          <FormField
+            label="Briefly describe why this person is being investigated"
+            name="custody_subject_why"
+            type="textarea"
+            value={data.custody_subject_why}
+            onChange={onChange}
+            placeholder="e.g., Suspected drug use in the home, violating custody order, exposing child to dangerous individuals..."
+            rows={3}
+          />
+        </div>
+      </FormCard>
+
       <FormCard title="Safety Concerns" description="Select all concerns that apply.">
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
