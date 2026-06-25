@@ -1,6 +1,6 @@
 import FormCard from "./FormCard";
 import FormField from "./FormField";
-import { Shield, Users, Building2, Radio, Search, FileQuestion } from "lucide-react";
+import { Shield, Users, Building2, Radio, Search, FileQuestion, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const CASE_TYPES = [
@@ -11,6 +11,7 @@ const CASE_TYPES = [
   { value: "tscm", label: "Bug Sweep / TSCM", icon: Radio, desc: "Electronic surveillance detection and countermeasures" },
   { value: "background", label: "Background Check", icon: Shield, desc: "Personal or professional vetting of an individual" },
   { value: "other", label: "Other Investigation", icon: FileQuestion, desc: "Something not listed above — describe your situation" },
+  { value: "situational", label: "Situational Investigation", icon: ClipboardList, desc: "Documenting a specific incident — road incident, altercation, or event requiring detailed reconstruction" },
 ];
 
 const URGENCY_OPTIONS = [

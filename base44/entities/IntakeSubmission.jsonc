@@ -589,6 +589,150 @@
     "custody_desired_outcome": {
       "type": "string"
     },
+    "sit_incident_date": {
+      "type": "string"
+    },
+    "sit_incident_end_time": {
+      "type": "string"
+    },
+    "sit_incident_location": {
+      "type": "string"
+    },
+    "sit_travel_direction": {
+      "type": "string"
+    },
+    "sit_weather_conditions": {
+      "type": "string"
+    },
+    "sit_traffic_conditions": {
+      "type": "string"
+    },
+    "sit_client_dob": {
+      "type": "string"
+    },
+    "sit_client_contact": {
+      "type": "string"
+    },
+    "sit_client_license": {
+      "type": "string"
+    },
+    "sit_other_party_name": {
+      "type": "string"
+    },
+    "sit_other_party_description": {
+      "type": "string"
+    },
+    "sit_your_passengers": {
+      "type": "string"
+    },
+    "sit_their_passengers": {
+      "type": "string"
+    },
+    "sit_witnesses": {
+      "type": "string"
+    },
+    "sit_your_vehicle": {
+      "type": "string"
+    },
+    "sit_other_vehicle": {
+      "type": "string"
+    },
+    "sit_vehicle_directions": {
+      "type": "string"
+    },
+    "sit_before_start": {
+      "type": "string"
+    },
+    "sit_first_action": {
+      "type": "string"
+    },
+    "sit_step_by_step": {
+      "type": "string"
+    },
+    "sit_how_ended": {
+      "type": "string"
+    },
+    "sit_total_duration": {
+      "type": "string"
+    },
+    "sit_verbal_exchanges": {
+      "type": "string"
+    },
+    "sit_gestures": {
+      "type": "string"
+    },
+    "sit_threats_weapons": {
+      "type": "string"
+    },
+    "sit_threats_weapons_details": {
+      "type": "string"
+    },
+    "sit_impairment_signs": {
+      "type": "string"
+    },
+    "sit_dashcam_footage": {
+      "type": "string"
+    },
+    "sit_photos_taken": {
+      "type": "string"
+    },
+    "sit_audio_recordings": {
+      "type": "string"
+    },
+    "sit_physical_evidence": {
+      "type": "string"
+    },
+    "sit_injuries": {
+      "type": "string"
+    },
+    "sit_property_damage": {
+      "type": "string"
+    },
+    "sit_emotional_impact": {
+      "type": "string"
+    },
+    "sit_911_called": {
+      "type": "string"
+    },
+    "sit_911_called_details": {
+      "type": "string"
+    },
+    "sit_police_response": {
+      "type": "string"
+    },
+    "sit_citations": {
+      "type": "string"
+    },
+    "sit_medical_response": {
+      "type": "string"
+    },
+    "sit_insurance_reported": {
+      "type": "string"
+    },
+    "sit_knew_party": {
+      "type": "string"
+    },
+    "sit_prior_incidents": {
+      "type": "string"
+    },
+    "sit_regular_route": {
+      "type": "string"
+    },
+    "sit_targeted_reason": {
+      "type": "string"
+    },
+    "sit_followed_contacted": {
+      "type": "string"
+    },
+    "sit_messages_received": {
+      "type": "string"
+    },
+    "sit_current_safety_concerns": {
+      "type": "string"
+    },
+    "sit_desired_outcome": {
+      "type": "string"
+    },
     "info_to_find": {
       "type": "string"
     },

@@ -15,6 +15,8 @@ import StepBehavior from "../components/intake/StepBehavior";
 import StepEvents from "../components/intake/StepEvents";
 import StepGoals from "../components/intake/StepGoals";
 import StepCustody from "../components/intake/StepCustody";
+import StepSituational from "../components/intake/StepSituational";
+import StepSituationalAftermath from "../components/intake/StepSituationalAftermath";
 import StepReview from "../components/intake/StepReview";
 
 // Define which step components appear for each case type (after the initial CaseType step)
@@ -43,6 +45,13 @@ const FLOW_DEFINITIONS = {
     { id: "goals",        label: "Goals",         component: "StepGoals" },
     { id: "review",       label: "Review",        component: "StepReview" },
   ],
+  situational: [
+    { id: "client_info",  label: "Your Info",    component: "StepClientInfo" },
+    { id: "situational",  label: "Incident",      component: "StepSituational" },
+    { id: "aftermath",    label: "Aftermath",     component: "StepSituationalAftermath" },
+    { id: "goals",        label: "Goals",         component: "StepGoals" },
+    { id: "review",       label: "Review",        component: "StepReview" },
+  ],
   default: [
     { id: "client_info",  label: "Your Info",  component: "StepClientInfo" },
     { id: "subject_info", label: "Subject",     component: "StepSubjectInfo" },
@@ -64,6 +73,8 @@ const STEP_COMPONENTS = {
   StepEvents,
   StepGoals,
   StepCustody,
+  StepSituational,
+  StepSituationalAftermath,
   StepReview,
 };
 
@@ -260,6 +271,55 @@ const INITIAL_DATA = {
   custody_emergency_petitions: "",
   custody_existing_orders: "",
   custody_desired_outcome: "",
+  // Situational Investigation
+  sit_incident_date: "",
+  sit_incident_end_time: "",
+  sit_incident_location: "",
+  sit_travel_direction: "",
+  sit_weather_conditions: "",
+  sit_traffic_conditions: "",
+  sit_client_dob: "",
+  sit_client_contact: "",
+  sit_client_license: "",
+  sit_other_party_name: "",
+  sit_other_party_description: "",
+  sit_your_passengers: "",
+  sit_their_passengers: "",
+  sit_witnesses: "",
+  sit_your_vehicle: "",
+  sit_other_vehicle: "",
+  sit_vehicle_directions: "",
+  sit_before_start: "",
+  sit_first_action: "",
+  sit_step_by_step: "",
+  sit_how_ended: "",
+  sit_total_duration: "",
+  sit_verbal_exchanges: "",
+  sit_gestures: "",
+  sit_threats_weapons: "",
+  sit_threats_weapons_details: "",
+  sit_impairment_signs: "",
+  sit_dashcam_footage: "",
+  sit_photos_taken: "",
+  sit_audio_recordings: "",
+  sit_physical_evidence: "",
+  sit_injuries: "",
+  sit_property_damage: "",
+  sit_emotional_impact: "",
+  sit_911_called: "",
+  sit_911_called_details: "",
+  sit_police_response: "",
+  sit_citations: "",
+  sit_medical_response: "",
+  sit_insurance_reported: "",
+  sit_knew_party: "",
+  sit_prior_incidents: "",
+  sit_regular_route: "",
+  sit_targeted_reason: "",
+  sit_followed_contacted: "",
+  sit_messages_received: "",
+  sit_current_safety_concerns: "",
+  sit_desired_outcome: "",
   info_to_find: "",
   plan_for_info: "",
   has_evidence: "",
@@ -418,6 +478,12 @@ export default function IntakeForm() {
       lines.push(`INVESTIGATED PARTY: ${d.custody_subject_name || "Unknown"}`);
       lines.push(`CHILD(REN): ${d.custody_child_names || "Not provided"}`);
       lines.push(`CUSTODY ARRANGEMENT: ${d.custody_arrangement || "Not provided"}`);
+    } else if (d.case_type === "situational") {
+      lines.push(`INCIDENT DATE: ${d.sit_incident_date || "Not provided"}`);
+      lines.push(`INCIDENT LOCATION: ${d.sit_incident_location || "Not provided"}`);
+      lines.push(`OTHER PARTY: ${d.sit_other_party_name || "Unknown"}`);
+      lines.push(`INJURIES: ${d.sit_injuries || "None reported"}`);
+      lines.push(`DESIRED OUTCOME: ${d.sit_desired_outcome || "Not specified"}`);
     } else {
       lines.push(`SUBJECT: ${d.subject_name || "Unknown"}`);
       lines.push(`SUBJECT ADDRESS: ${[d.subject_address, d.subject_city, d.subject_state].filter(Boolean).join(", ") || "Not provided"}`);
